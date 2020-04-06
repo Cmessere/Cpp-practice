@@ -6,9 +6,7 @@ using namespace std;
 
 
 
-void printPyramid(){
-    const short int base = 10;
-    const char mark = '*';
+void printPyramid(short int base, char mark){
 
     for (short int i = 0; i <= 10; i++)
     {
@@ -20,9 +18,8 @@ void printPyramid(){
     }
 }
 
-void printReversePyramid(){
-    const short int base = 10;
-    const char mark = '*';
+void printReversePyramid(short int base, char mark){
+
 
     for (short int i = 10; i >= 0; i--)
     {
@@ -36,6 +33,9 @@ void printReversePyramid(){
 
 int main()
 {
-    printPyramid();
-    printReversePyramid();
+    const short int base = 10;
+    const char mark = '*';
+
+    printPyramid(base, mark);
+    printReversePyramid(base, mark);
 }
