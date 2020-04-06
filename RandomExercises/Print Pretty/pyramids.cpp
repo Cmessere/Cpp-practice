@@ -8,7 +8,7 @@ using namespace std;
 
 void printPyramid(short int base, char mark){
 
-    for (short int i = 0; i <= 10; i++)
+    for (short int i = 0; i <= base; i++)
     {
         for (short int j = 0; j < i; j++)
         {
@@ -21,7 +21,7 @@ void printPyramid(short int base, char mark){
 void printReversePyramid(short int base, char mark){
 
 
-    for (short int i = 10; i >= 0; i--)
+    for (short int i = base; i >= 0; i--)
     {
         for (short int j = 0; j < i; j++)
         {
@@ -33,8 +33,14 @@ void printReversePyramid(short int base, char mark){
 
 int main()
 {
-    const short int base = 10;
-    const char mark = '*';
+    short int base = 10;
+    char mark = '*';
+
+    cout << "insert base lenght:" << endl;
+    cin >> base;
+
+    cout << "insert fill character:" << endl;
+    cin >> mark;
 
     printPyramid(base, mark);
     printReversePyramid(base, mark);
