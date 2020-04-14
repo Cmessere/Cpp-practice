@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-void getValuesFromUser(double &balance, short &months, float interestRate, double monthlyDeposit = 0){
+void getValuesFromUser(double &balance, short &months, double monthlyDeposit = 0, float interestRate = 0){
     cout << "Insert starting balance: ";
     cin >> balance;
     
@@ -15,8 +15,8 @@ void getValuesFromUser(double &balance, short &months, float interestRate, doubl
     cin >> monthlyDeposit;
 }
 
-void depositOnly(double &balance, short &months, float &interestRate, double &monthlyDeposit){
-    getValuesFromUser(balance, months, interestRate, monthlyDeposit);
+void depositOnly(double &balance, short &months, double &monthlyDeposit, float &interestRate){
+    getValuesFromUser(balance, months);
     
     for(short i = 0; i < months; i++){
         balance += monthlyDeposit;

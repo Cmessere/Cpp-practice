@@ -18,19 +18,19 @@ int main()
 
     switch(interestOption){
         case 1:
-            depositOnly(balance, months, interestRate, monthlyDeposit);
+            depositOnly(balance, months, monthlyDeposit, interestRate);
             break;
 
         case 2:
-            getValuesFromUser(balance, months, interestRate, monthlyDeposit);
+            getValuesFromUser(balance, months, monthlyDeposit, interestRate);
             break;
 
         case 3:
-            getValuesFromUser(balance, months, interestRate, monthlyDeposit);
+            getValuesFromUser(balance, months, monthlyDeposit, interestRate);
             break;
 
         default:    
-            getValuesFromUser(balance, months, interestRate, monthlyDeposit);
+            getValuesFromUser(balance, months, monthlyDeposit, interestRate);
             break;
     }
 }
