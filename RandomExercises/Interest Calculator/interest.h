@@ -9,7 +9,7 @@ void getValuesFromUser(double &balance, short &months, float &interestRate, doub
     cout << "Insert number of months: ";
     cin >> months;
     
-    cout << "Insert interest rate: ";
+    cout << "Insert interest rate (0.01 equals 1%): ";
     cin >> interestRate;
 
     cout << "Insert monthly deposit rate: ";
