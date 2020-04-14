@@ -22,7 +22,7 @@ int main()
             break;
 
         case 2:
-            getValuesFromUser(balance, months, monthlyDeposit, interestRate);
+            fixedRateInterest(balance, months, monthlyDeposit, interestRate);
             break;
 
         case 3:
