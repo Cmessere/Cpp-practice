@@ -9,12 +9,12 @@ void getValuesFromUser(double &balance, short &months, double &monthlyDeposit, f
     cin >> months;
     
     if(interestRate != -1){
-        cout << "Insert interest rate (0.01 equals 1%): ";
+        cout << "Insert interest rate (0.01 equals 1%, -1 to disable): ";
         cin >> interestRate;
     }
 
     if(monthlyDeposit != -1){
-        cout << "Insert monthly deposit rate: ";
+        cout << "Insert monthly deposit rate (-1 to disable): ";
         cin >> monthlyDeposit;
     }
 }
