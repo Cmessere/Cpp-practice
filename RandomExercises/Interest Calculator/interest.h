@@ -1,22 +1,26 @@
 #include <iostream>
 using namespace std;
 
-void getValuesFromUser(double &balance, short &months, double monthlyDeposit = 0, float interestRate = 0){
+void getValuesFromUser(double &balance, short &months, double &monthlyDeposit, float interestRate){
     cout << "Insert starting balance: ";
     cin >> balance;
     
     cout << "Insert number of months: ";
     cin >> months;
     
-    cout << "Insert interest rate (0.01 equals 1%): ";
-    cin >> interestRate;
+    if(interestRate != -1){
+        cout << "Insert interest rate (0.01 equals 1%): ";
+        cin >> interestRate;
+    }
 
-    cout << "Insert monthly deposit rate: ";
-    cin >> monthlyDeposit;
+    if(monthlyDeposit != -1){
+        cout << "Insert monthly deposit rate: ";
+        cin >> monthlyDeposit;
+    }
 }
 
 void depositOnly(double &balance, short &months, double &monthlyDeposit, float &interestRate){
-    getValuesFromUser(balance, months);
+    getValuesFromUser(balance, months, monthlyDeposit, -1);
     
     for(short i = 0; i < months; i++){
         balance += monthlyDeposit;
