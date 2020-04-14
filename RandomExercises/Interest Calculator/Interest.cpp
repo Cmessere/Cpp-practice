@@ -15,7 +15,25 @@ int main()
     cout << "2) Fixed Interest rate." << endl;
     cout << "3) Variable interest rate" << endl;
     cin >> interestOption;
-    getValuesFromUser(balance, months, interestRate, monthlyDeposit);
+
+    switch(interestOption){
+        case 1:
+            getValuesFromUser(balance, months, interestRate, monthlyDeposit);
+            break;
+
+        case 2:
+            getValuesFromUser(balance, months, interestRate, monthlyDeposit);
+            break;
+
+        case 3:
+            getValuesFromUser(balance, months, interestRate, monthlyDeposit);
+            break;
+
+        default:    
+            getValuesFromUser(balance, months, interestRate, monthlyDeposit);
+            break;
+    }
+
 
     for(short i = 0; i < months; i++){
         balance = balance + balance*interestRate + monthlyDeposit;
