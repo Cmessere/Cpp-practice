@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
     short months, interestOption;
-    float interestRate;
+    float interestRate, upperInterestRate;
     double balance, monthlyDeposit;
 
 
@@ -26,11 +26,10 @@ int main()
             break;
 
         case 3:
-            getValuesFromUser(balance, months, monthlyDeposit, interestRate);
+            variableRateInterest(balance, months, monthlyDeposit, interestRate, upperInterestRate);
             break;
 
         default:    
-            getValuesFromUser(balance, months, monthlyDeposit, interestRate);
             break;
     }
 }
