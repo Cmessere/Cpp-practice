@@ -10,33 +10,31 @@
 #include <algorithm>
 using namespace std;
 
-int main()
-{
+
+int main() {
 
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int nvec, nque;
-    cin >> nvec >> nque;
+  int nvec, nque;
+  cin >> nvec >> nque;
 
-    vector<vector<int>> a(nvec);
+  vector<vector<int>> a(nvec);
 
-    for (int i = 0; i < nvec; i++)
-    {
+    for (int i = 0; i < nvec; i++) {
         int size = 0;
         cin >> size;
         a[i].resize(size);
-        for (int j = 0; j < size; j++)
-        {
+        for (int j = 0; j < size; j++) {
             cin >> a[i][j];
         }
     }
 
-    for (int i = 0; i < nque; i++)
-    {
+    for (int i = 0; i < nque; i++) {
         int idx, pos;
         cin >> idx >> pos;
         cout << a[idx][pos] << "\n";
     }
-    return 0;
+      return 0;
 }
+
