@@ -1,6 +1,6 @@
 //Shiro23
 
-//https://www.hackerrank.com/challenges/c-tutorial-for-loop/copy-from/159490182
+//https://www.hackerrank.com/challenges/c-tutorial-for-loop/problem
 
 
 #include <bits/stdc++.h>
