@@ -11,6 +11,9 @@ string getInput(const string& inputNumber) {
     {
         cout << "Insert the " << inputNumber << " number: " << endl;
         cin >> input;
+        
+        if (input.find('-') != string::npos)
+            cout << "Only positive numbers allowed." << endl;
 
     } while (!regex_match(input, onlyNumbers));
 
