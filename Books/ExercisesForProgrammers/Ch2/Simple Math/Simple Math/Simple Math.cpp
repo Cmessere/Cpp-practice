@@ -13,8 +13,7 @@ enum operations {
 
 string getInput(const string& inputNumber) {
     string input;
-    regex onlyNumbers("[0-9]+.?[0-9]+");
-
+    regex onlyNumbers("^-?\\d*(\\.\\d+)?$");
     do
     {
         cout << "Insert the " << inputNumber << " number: " << endl;
