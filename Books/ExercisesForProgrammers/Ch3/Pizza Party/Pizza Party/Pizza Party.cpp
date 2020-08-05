@@ -19,6 +19,26 @@ int getInput(const string& question) {
     return input;
 }
 
+void printSlicesPerPerson(const int &slices) {
+    if (slices == 1) {
+        cout << "Each person gets " << slices << " piece of pizza." << endl;
+    }
+    else {
+        cout << "Each person gets " << slices << " pieces of pizza." << endl;
+    }
+
+}
+
+void printSlicesRemaining(const int& slices) {
+    if (slices == 1) {
+        cout << "There is " << slices << " leftover piece." << endl;
+    }
+    else {
+        cout << "There are " << slices << " leftover pieces." << endl;
+    }
+}
+
+
 int main()
 {
 	int people, pizzas, pieces = 0;
@@ -28,6 +48,6 @@ int main()
 	
 	pieces = pizzas * SLICES;
 
-	cout << "Each person gets " << pieces / people << " pieces of pizzas." << endl;
-	cout << "There are " << pieces % people << " leftover pieces." << endl;
+    printSlicesPerPerson(pieces / people);
+    printSlicesRemaining(pieces % people);
 }
