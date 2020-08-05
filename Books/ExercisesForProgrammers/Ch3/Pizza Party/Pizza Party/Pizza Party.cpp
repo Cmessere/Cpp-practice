@@ -3,14 +3,28 @@
 
 using namespace std;
 
+int getInput(const string& question) {
+    int input;
+
+    cout << "How many " << question << "?" << endl;
+    cin >> input;
+
+    while (cin.fail())
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Only numbers allowed. Please try again" << endl;
+        cin >> input;
+    }
+    return input;
+}
+
 int main()
 {
 	int people, pizzas, pieces = 0;
 
-	cout << "How many people?" << endl;
-	cin >> people;
-	cout << "How many pizzas?" << endl;
-	cin >> pizzas;
+    people = getInput("people");
+    pizzas = getInput("pizzas");
 	
 	pieces = pizzas * SLICES;
 
