@@ -1,11 +1,11 @@
 #include <iostream>
-
+#include <string>
 using namespace std;
 
-double getInput(const string& dimension) {
+double getInput(const string& dimension, const string& measure) {
     double size;
 
-    cout << "What is the "<< dimension <<" of the room in feet?" << endl;
+    cout << "What is the "<< dimension <<" of the room in " << measure << "?" << endl;
     cin >> size;
 
     while (cin.fail())
@@ -18,17 +18,43 @@ double getInput(const string& dimension) {
     return size;
 }
 
+double areaInMeters(const double& width, const double& length) {
+    cout << length * width << " square meters" << endl;
+    return length * width;
+}
+
+double areaInFeet(const double& width, const double& length) {
+    cout << length * width << " square feet" << endl;
+    return length * width;
+}
+
 int main()
 {
-    double length, width;
-    const double SQUARED_FEET_TO_METERS = 0.09290304; 
+    string measure;
+    double length, width, area;
+    const double SQUARED_FEET_TO_METERS = 0.09290304, SQUARED_METERS_TO_FEET = 10.764;
 
-    length = getInput("length");
-    width = getInput("width");
+    cout << "Do you prefer meters or feet?" << endl;
+    getline(std::cin, measure);
+   
+    while ((measure != "feet" && measure != "meters"))
+    {
+        cout << "That is not a valid option. Please try again: ";
+        getline(std::cin, measure);
+    }
 
-    cout << "You entered dimensions of " << length << " feet by " << width << " feet." << endl;
+    length = getInput("length", measure);
+    width = getInput("width", measure);
+
+    cout << "You entered dimensions of " << length << " " << measure <<" by " << width << " "  << measure << endl;
 
     cout << "The Area is:" << endl;
-    cout << length * width << " square feet" << endl;
-    cout << (length * width)*SQUARED_FEET_TO_METERS << " square feet" << endl;
+    if (measure == "meters") {
+        area = areaInMeters(width, length);
+        cout << (length * width)*SQUARED_METERS_TO_FEET << " square feet" << endl;
+    }
+    else {
+        area = areaInFeet(width, length);
+        cout << (length * width) * SQUARED_FEET_TO_METERS << " square meters" << endl;
+    }
 }
