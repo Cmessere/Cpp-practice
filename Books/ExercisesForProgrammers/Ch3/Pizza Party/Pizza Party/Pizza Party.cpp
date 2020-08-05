@@ -38,16 +38,49 @@ void printSlicesRemaining(const int& slices) {
     }
 }
 
-
-int main()
-{
-	int people, pizzas, pieces = 0;
+void dividingPizzas() {
+    int people, pizzas, pieces = 0;
 
     people = getInput("people");
     pizzas = getInput("pizzas");
-	
-	pieces = pizzas * SLICES;
+
+    pieces = pizzas * SLICES;
 
     printSlicesPerPerson(pieces / people);
     printSlicesRemaining(pieces % people);
+}
+
+void calculatePizzas() {
+    int people, pieces, pizzasNeeded;
+
+    people = getInput("people");
+    pieces = getInput("pieces");
+    pizzasNeeded = (pieces * people) / SLICES;
+
+    if(pizzasNeeded == 1)
+        cout << "You need at least " << pizzasNeeded << " pizza." << endl;
+    else
+        cout << "You need at least " << pizzasNeeded << " pizzas." << endl;
+}
+
+int main()
+{
+    string choice;
+    
+    cout << "Do you want to 'divide' pizza? or 'calculate' how many you need?" << endl;
+    cin >> choice;
+
+    while ((choice != "divide" && choice != "calculate"))
+    {
+        cout << "That is not a valid option. Please try again: ";
+        cin >> choice;
+    }
+
+    if (choice == "divide"){
+        cout << "Dividing pizzas..." << endl;
+        dividingPizzas();
+    }
+    else {
+        calculatePizzas();
+    }
 }
