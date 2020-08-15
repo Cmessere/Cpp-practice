@@ -1,9 +1,12 @@
 #include <iostream>
+#include <vector>
+
+constexpr auto TAX_VALUE = 5.5;
 
 using namespace std;
 
 struct  PRODUCT {
-	unsigned short quantity;
+	double quantity;
 	double price;
 };
 
@@ -23,24 +26,45 @@ double getInput(const string& value, const unsigned short &number) {
 	return size;
 }
 
+void getProducts(unsigned short size, std::vector<PRODUCT*>& shoppingList);
+
+void getSubtotal(std::vector<PRODUCT*>& shoppingList, double& subtotal);
+
 int main()
 {
-	PRODUCT first, second, third;
+	unsigned short size;
 	double subtotal = 0, tax = 0;
 
-	first.price = getInput("price", 1);
-	first.quantity = getInput("quantity", 1);
+	cout << "How many items do you want to buy? ";
+	cin >> size;
 
-	second.price = getInput("price", 2);
-	second.quantity = getInput("quantity", 2);
+	vector<PRODUCT*> shoppingList;
 
-	third.price = getInput("price", 3);
-	third.quantity = getInput("quantity", 3);
+	getProducts(size, shoppingList);
+	getSubtotal(shoppingList, subtotal);
 
-	subtotal = first.price * first.quantity + second.price * second.quantity + third.price * third.quantity;
-	tax = subtotal * 5.5 / 100;
+	tax = subtotal * TAX_VALUE / 100;
 
 	cout << "Subtotal: $" << subtotal << endl;
 	cout << "Tax: $" << tax << endl;
 	cout << "Total: $" << tax + subtotal << endl;
+}
+
+void getSubtotal(std::vector<PRODUCT*>& shoppingList, double& subtotal)
+{
+	for (auto i : shoppingList) {
+		subtotal += i->price * i->quantity;
+		delete(i);
+	}
+}
+
+void getProducts(unsigned short size, std::vector<PRODUCT*>& shoppingList)
+{
+	for (short i = 0; i < size; i++) {
+		PRODUCT* newProduct = new PRODUCT();
+
+		newProduct->price = getInput("price", i + 1);
+		newProduct->quantity = getInput("quantity", i + 1);
+		shoppingList.push_back(newProduct);
+	}
 }
