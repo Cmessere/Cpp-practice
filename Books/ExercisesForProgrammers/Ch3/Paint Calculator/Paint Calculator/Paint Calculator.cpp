@@ -22,6 +22,10 @@ double getInput(const string& dimension) {
     return size;
 }
 
+void outputResult( const unsigned short &cans ) {
+    cout << "You're going to need " << cans << " to completely paint the room." << endl;
+}
+
 void squareRoom() {
     double length, width;
     unsigned short paintCans = 1;
@@ -31,10 +35,10 @@ void squareRoom() {
 
     paintCans = ceil(length * width / FEET_SQUARED_PER_GALLON);
 
-    cout << "You're going to need " << paintCans << " to completely paint the room." << endl;
+    outputResult(paintCans);
 }
 
-void circularRoom() {
+void circularRoom(){
     double radius;
     unsigned short paintCans = 1;
 
@@ -42,17 +46,31 @@ void circularRoom() {
 
     paintCans = ceil((PI * radius * radius) / FEET_SQUARED_PER_GALLON);
 
-    cout << "You're going to need " << paintCans << " to completely paint the room." << endl;
+    outputResult(paintCans);
+}
+
+void lShapedRoom() {
+    double majorLength, majorWidth, minorLength, minorWidth;
+    unsigned short paintCans = 1;
+
+    majorLength = getInput("length of the long side");
+    majorWidth = getInput("width of the long side");
+    minorLength = getInput("length of the small side");
+    minorWidth = getInput("width of the small side");
+
+    paintCans = ceil((majorLength * majorWidth + minorLength * minorWidth) / FEET_SQUARED_PER_GALLON);
+
+    outputResult(paintCans);
 }
 
 int main()
 {
     string shape;
-    cout << "Is the room squared or circular?" << endl;
+    cout << "Is the room squared, circular or L shaped?" << endl;
     
     getline(std::cin, shape);
 
-    while ((shape != "squared" && shape != "circular"))
+    while ((shape != "squared" && shape != "circular" && shape != "L"))
     {
         cout << "That is not a valid option. Please try again: ";
         getline(std::cin, shape);
@@ -60,7 +78,8 @@ int main()
 
     if (shape == "squared")
         squareRoom();
-    else
+    else if (shape == "circular")
         circularRoom();
-
+    else
+        lShapedRoom();
 }
