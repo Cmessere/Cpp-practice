@@ -7,25 +7,35 @@ struct  PRODUCT {
 	double price;
 };
 
+double getInput(const string& value, const unsigned short &number) {
+	double size;
+
+	cout << "Enter the " << value << " for item " << number << ": " << endl;
+	cin >> size;
+
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Only numbers allowed. Please try again" << endl;
+		cin >> size;
+	}
+	return size;
+}
+
 int main()
 {
 	PRODUCT first, second, third;
 	double subtotal = 0, tax = 0;
 
-	cout << "Enter the price for item 1: " << endl;
-	cin >> first.price;
-	cout << "Enter the quantity for item 1: " << endl;
-	cin >> first.quantity;
+	first.price = getInput("price", 1);
+	first.quantity = getInput("quantity", 1);
 
-	cout << "Enter the price for item 2: " << endl;
-	cin >> second.price;
-	cout << "Enter the quantity for item 2: " << endl;
-	cin >> second.quantity;
+	second.price = getInput("price", 2);
+	second.quantity = getInput("quantity", 2);
 
-	cout << "Enter the price for item 3: " << endl;
-	cin >> third.price;
-	cout << "Enter the quantity for item 3: " << endl;
-	cin >> third.quantity;
+	third.price = getInput("price", 3);
+	third.quantity = getInput("quantity", 3);
 
 	subtotal = first.price * first.quantity + second.price * second.quantity + third.price * third.quantity;
 	tax = subtotal * 5.5 / 100;
@@ -33,5 +43,4 @@ int main()
 	cout << "Subtotal: $" << subtotal << endl;
 	cout << "Tax: $" << tax << endl;
 	cout << "Total: $" << tax + subtotal << endl;
-
 }
