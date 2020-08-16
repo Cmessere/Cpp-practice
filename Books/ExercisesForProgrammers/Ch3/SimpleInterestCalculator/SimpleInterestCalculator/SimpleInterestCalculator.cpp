@@ -36,15 +36,21 @@ unsigned short getUnsignedShort(const string& question) {
 
 int main()
 {
-	double rate, startingCapital, calculatedAmount;
+	double rate, startingCapital, partialAmount;
 	unsigned short investmentYears;
 
     startingCapital = getDouble("principal");
     rate = getDouble("rate of interest");
     investmentYears = getUnsignedShort("number of years");
 
-	calculatedAmount = startingCapital*(1 + rate / 100 * investmentYears);
+    partialAmount = startingCapital;
+
     cout.precision(2);
     cout << fixed;
-	cout << "After " << investmentYears << " years at " << rate << "%, the investment will be worth $" << calculatedAmount;
+
+    for (unsigned short i = 0; i < investmentYears; i++)
+    {
+        partialAmount *= 1 + rate / 100;
+        cout << "At the end of year " << i + 1 << " the investment will be worth $" << partialAmount <<endl;
+    }
 }
