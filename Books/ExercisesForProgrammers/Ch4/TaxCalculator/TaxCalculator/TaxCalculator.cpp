@@ -41,7 +41,7 @@ int main()
 
 	std::for_each(state.begin(), state.end(), [](char& c) {c = ::toupper(c); });
 
-	if (state == "WI") {
+	if (state == "WI" || state == "WINSCONSIN") {
 		cout << "The subtotal is $" << amount << endl;
 		cout << "The tax is $" << amount/100*STATE_TAX << endl;
 		
