@@ -44,6 +44,7 @@ int main()
     investmentYears = getUnsignedShort("number of years");
 
 	calculatedAmount = startingCapital*(1 + rate / 100 * investmentYears);
-
+    cout.precision(2);
+    cout << fixed;
 	cout << "After " << investmentYears << " years at " << rate << "%, the investment will be worth $" << calculatedAmount;
 }
