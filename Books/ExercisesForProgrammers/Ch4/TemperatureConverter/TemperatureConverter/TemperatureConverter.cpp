@@ -37,6 +37,13 @@ void fahrenheitToCelsius() {
 
 	cout << "Please enter the temperature in Fahrenheit: ";
 	cin >> temperature;
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Only numbers allowed. Please try again" << endl;
+		cin >> temperature;
+	}
 
 	temperature = (temperature - 32) * 5 / 9;
 
@@ -48,8 +55,15 @@ void celsiusToFahrenheit() {
 
 	cout << "Please enter the temperature in Celsius: ";
 	cin >> temperature;
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Only numbers allowed. Please try again" << endl;
+		cin >> temperature;
+	}
 
 	temperature = (temperature * 9/5) + 32;
 
-	cout << "The temperature in celsius is " << temperature << endl;
+	cout << "The temperature in Fahrenheit is " << temperature << endl;
 }
