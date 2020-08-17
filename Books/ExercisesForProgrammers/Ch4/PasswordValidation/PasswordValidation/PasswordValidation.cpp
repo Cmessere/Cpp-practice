@@ -1,21 +1,39 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <windows.h>
+#include <map>
 
 using namespace std;
 string getpass(const char* prompt, bool show_asterisk);
+void initializeUsers(map<string,string> &users);
 
 int main()
 {
+    string loggingUser;
+    map<string, string> users;
 
-	string password = getpass("Please enter the password: ", true); // Show asterisks
+    initializeUsers(users);
 
-	if (password == "abc$123") {
-		cout << "Welcome!" << endl;
+    cout << "Insert username: ";
+    cin >> loggingUser;
+
+    std::for_each(loggingUser.begin(), loggingUser.end(), [](char& c) {c = ::tolower(c);});
+
+    string password = getpass("Please enter the password: ", true); // Show asterisks
+
+	if (users[loggingUser] == password) {
+		cout << "Welcome " << loggingUser << "!" << endl;
 	}
 	else {
 		cout << "I don't know you" << endl;
 	}
+}
+
+void initializeUsers(map<string, string> &users) {
+    users["charles"] = "Magn3";
+    users["link"] = "TriCourage";
+    users["luigi"] = "BlikeMario";
 }
 
 string getpass(const char* prompt, bool show_asterisk = true)
