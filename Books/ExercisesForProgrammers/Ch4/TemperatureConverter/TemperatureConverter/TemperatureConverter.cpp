@@ -3,17 +3,25 @@
 
 using namespace std;
 
-void fahrenheitToCelsius();
 void promptForConversion(std::string& choice);
-void celsiusToFahrenheit();
+void convertTemperature(const string& question, const string& answer, const short& scale);
 
 int main()
 {
-	string choice;
+	string choice, question, answer;
 
 	promptForConversion(choice);
 
-	choice == "C" ? fahrenheitToCelsius() : celsiusToFahrenheit();
+	if (choice == "C") {
+		question = "Fahrenheit";
+		answer = "Celsius";
+		convertTemperature(question, answer, 0);
+	}
+	else {
+		question = "Celsius";
+		answer = "Fahrenheit";
+		convertTemperature(question, answer, 1);
+	}
 }
 
 void promptForConversion(std::string& choice)
@@ -32,11 +40,13 @@ void promptForConversion(std::string& choice)
 	}
 }
 
-void fahrenheitToCelsius() {
+void convertTemperature(const string& question, const string& answer, const short& scale) {
+
 	double temperature;
 
-	cout << "Please enter the temperature in Fahrenheit: ";
+	cout << "Please enter the temperature in "<< question << ": ";
 	cin >> temperature;
+
 	while (cin.fail())
 	{
 		cin.clear();
@@ -45,25 +55,17 @@ void fahrenheitToCelsius() {
 		cin >> temperature;
 	}
 
-	temperature = (temperature - 32) * 5 / 9;
-
-	cout << "The temperature in celsius is " << temperature << endl;
-}
-
-void celsiusToFahrenheit() {
-	double temperature;
-
-	cout << "Please enter the temperature in Celsius: ";
-	cin >> temperature;
-	while (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cout << "Only numbers allowed. Please try again" << endl;
-		cin >> temperature;
+	switch (scale) {
+		case 0:
+			temperature = (temperature - 32) * 5 / 9;
+			break;
+		case 1:
+			temperature = (temperature * 9 / 5) + 32;
+			break;
+		default:
+			break;
 	}
 
-	temperature = (temperature * 9/5) + 32;
+	cout << "The temperature in " << answer << " is: " << temperature << endl;
 
-	cout << "The temperature in Fahrenheit is " << temperature << endl;
 }
