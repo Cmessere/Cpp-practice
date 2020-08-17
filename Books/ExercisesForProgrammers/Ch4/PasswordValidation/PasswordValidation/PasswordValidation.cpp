@@ -4,5 +4,15 @@ using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	string password;
+
+	cout << "What is the password? ";
+	cin >> password;
+
+	if (password == "abc$123") {
+		cout << "Welcome!" << endl;
+	}
+	else {
+		cout << "I don't know you" << endl;
+	}
 }
