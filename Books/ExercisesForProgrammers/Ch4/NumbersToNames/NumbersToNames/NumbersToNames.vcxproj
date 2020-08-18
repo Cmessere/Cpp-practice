@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="NumbersToNames.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NumbersToNames.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
