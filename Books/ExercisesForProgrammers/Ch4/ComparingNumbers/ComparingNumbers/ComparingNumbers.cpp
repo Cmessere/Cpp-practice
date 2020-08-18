@@ -23,8 +23,18 @@ int main()
 	double first, second, third, max = std::numeric_limits<double>::min();
 	
 	first = getDouble("first");
+
 	second = getDouble("second");
+	while (second == first) {
+		cout << "You already entered this number." << endl;
+		second = getDouble("second");
+	}
+
 	third = getDouble("third");
+	while (third == first || third == second) {
+		cout << "You already entered this number." << endl;
+		third = getDouble("third");
+	}
 
 	if (first == second || second == third || third == first) {
 		cout << "One of the numbers is equal to the others, exiting..";
