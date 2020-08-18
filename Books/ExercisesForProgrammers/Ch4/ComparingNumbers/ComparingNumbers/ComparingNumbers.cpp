@@ -1,8 +1,9 @@
 #include <iostream>
+#include <set>
 
 using namespace std;
 
-double getDouble(const string question) {
+double getDouble(const short question) {
 	double input;
 
 	cout << "Enter the "<< question << " number: ";
@@ -20,33 +21,25 @@ double getDouble(const string question) {
 
 int main()
 {
-	double first, second, third, max = std::numeric_limits<double>::min();
-	
-	first = getDouble("first");
+	double input, max = std::numeric_limits<double>::min();
+	set<int> inputSet;
 
-	second = getDouble("second");
-	while (second == first) {
-		cout << "You already entered this number." << endl;
-		second = getDouble("second");
+	for (short i = 0; i < 10; i++) {
+		input = getDouble(i + 1);
+		bool alreadyInserted = inputSet.find(input) != inputSet.end();
+
+		while (alreadyInserted) {
+			cout << "You already entered "<< input << endl;
+			input = getDouble(i + 1);
+			alreadyInserted = inputSet.find(input) != inputSet.end();
+		}
+
+		inputSet.insert(input);
+
+		if (input > max) {
+			max = input;
+		}
 	}
-
-	third = getDouble("third");
-	while (third == first || third == second) {
-		cout << "You already entered this number." << endl;
-		third = getDouble("third");
-	}
-
-	if (first == second || second == third || third == first) {
-		cout << "One of the numbers is equal to the others, exiting..";
-		return 1;
-	}
-
-	if(first > max)
-		max = first;
-	if(second > max)
-		max = second;
-	if(third > max)
-		max = third;
 	
 	cout << "The largest number is: " << max << endl;
 }
