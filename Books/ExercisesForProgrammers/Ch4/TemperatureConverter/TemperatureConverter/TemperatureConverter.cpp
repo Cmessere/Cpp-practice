@@ -3,31 +3,65 @@
 
 using namespace std;
 
-void promptForConversion(std::string& choice);
+void promptForFirstScale(string& choice);
 void convertTemperature(const string& question, const string& answer, const short& scale);
+void getConversionFormula(const short& scale, double& temperature);
+string promptForSecondScale(const string& question, const string& fistOption, const string& secondOption);
 
 int main()
 {
-	string choice, question, answer;
+	string choice, question, firstOption, secondOption, answer;
 
-	promptForConversion(choice);
+	promptForFirstScale(choice);
 
-	if (choice == "C") {
+	if (choice == "F") {
 		question = "Fahrenheit";
-		answer = "Celsius";
-		convertTemperature(question, answer, 0);
+		firstOption = "C";
+		secondOption = "K";
+
+		answer = promptForSecondScale(question, firstOption, secondOption);
+		answer == "C" ? convertTemperature(question, answer, 0) : convertTemperature(question, answer, 1);
+	}
+	else if(choice == "C"){
+		question = "Celsius";
+		firstOption = "F";
+		secondOption = "K";
+
+		answer = promptForSecondScale(question, firstOption, secondOption);
+		answer == "F" ? convertTemperature(question, answer, 2) : convertTemperature(question, answer, 3);
 	}
 	else {
-		question = "Celsius";
-		answer = "Fahrenheit";
-		convertTemperature(question, answer, 1);
+		question = "Kelvin";
+		firstOption = "F";
+		secondOption = "C";
+
+		answer = promptForSecondScale(question, firstOption, secondOption);
+		answer == "F" ? convertTemperature(question, answer, 4) : convertTemperature(question, answer, 5);
 	}
 }
 
-void promptForConversion(std::string& choice)
+string promptForSecondScale(const string& question, const string& fistOption, const string& secondOption) {
+	string answer;
+
+	cout << "Do you want to convert " << question << " to " << fistOption << " or " << secondOption << "? ";
+	cin >> answer;
+
+	std::for_each(answer.begin(), answer.end(), [](char& c) { c = ::toupper(c); });
+
+	while (answer != fistOption && answer != secondOption) {
+		cout << "This is not a valid option, please try again." << endl;
+		cin >> answer;
+		std::for_each(answer.begin(), answer.end(), [](char& c) { c = ::toupper(c); });
+	}
+
+	return answer;
+}
+
+void promptForFirstScale(string& choice)
 {
-	cout << "Press C to convert from Fahrenheit to Celsius." << endl;
-	cout << "Press F to convert from Celsius to Fahrenheit." << endl;
+	cout << "Press C to convert to Celsius." << endl;
+	cout << "Press F to convert to Fahrenheit." << endl;
+	cout << "Press K to convert to Kelvin." << endl;
 	cout << "Your choice: ";
 	cin >> choice;
 
@@ -55,17 +89,33 @@ void convertTemperature(const string& question, const string& answer, const shor
 		cin >> temperature;
 	}
 
-	switch (scale) {
-		case 0:
-			temperature = (temperature - 32) * 5 / 9;
-			break;
-		case 1:
-			temperature = (temperature * 9 / 5) + 32;
-			break;
-		default:
-			break;
-	}
+	getConversionFormula(scale, temperature);
 
 	cout << "The temperature in " << answer << " is: " << temperature << endl;
+}
 
+void getConversionFormula(const short& scale, double& temperature)
+{
+	switch (scale) {
+	case 0: //F 2 C
+		temperature = (temperature - 32) * 5 / 9;
+		break;
+	case 1: // F 2 K
+		temperature = (temperature - 32) * 5 / 9 + 273.15;
+		break;
+	case 2: // C 2 F
+		temperature = (temperature * 9 / 5) + 32;
+		break;
+	case 3: // C 2 K
+		temperature = (temperature + 273.15);
+		break;
+	case 4: // K 2 F
+		temperature = (temperature - 273.15) * 9 / 5 + 32;
+		break;
+	case 5: // K 2 C
+		temperature = (temperature - 273.15);
+		break;
+	default:
+		break;
+	}
 }
