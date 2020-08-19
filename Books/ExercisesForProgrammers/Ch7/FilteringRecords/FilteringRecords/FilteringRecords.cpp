@@ -2,6 +2,9 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
+#include <ctime> 
+#include <string> 
+#include <sstream>
 
 using namespace std;
 
@@ -21,7 +24,7 @@ void askForStringToSearch(std::string& choice);
 
 void filterOnName(const employee& e, const std::string& filter, std::vector<employee>& filtered);
 void filterOnPosition(const employee& e, const std::string& filter, std::vector<employee>& filtered);
-
+void filterOnDate(employee& e, std::vector<employee>& filtered);
 
 using namespace std;
 
@@ -31,21 +34,23 @@ int main()
     string choice, filter;
 
     askForFieldToSort(choice);
-    askForStringToSearch(filter);
+    if (choice != "DATE") {
+        askForStringToSearch(filter);
+    }
     initializeEmployees(employeesList);
     filterEmployees(employeesList, filter, filtered, choice);
-    printEmployees(filtered);
+     printEmployees(filtered);
 }
 
 void askForFieldToSort(std::string& choice)
 {
-    cout << "Do you want to sort on name or position? ";
+    cout << "Do you want to sort on name, position or date of separation? ";
     cin >> choice;
 
     std::for_each(choice.begin(), choice.end(), [](char& c) {c = ::toupper(c); });
 
 
-    while (choice != "NAME" && choice != "POSITION") {
+    while (choice != "NAME" && choice != "POSITION" && choice != "DATE") {
         cout << "Sorry, not a valid option. Please try again" << endl;
         cin >> choice;
     }
@@ -64,8 +69,7 @@ void printEmployees(const vector<employee>& list) {
     for (auto e : list) {
         cout << setw(20) << e.name + " " + e.surname << setw(20) << e.position << setw(20) << e.date << endl;
     }
-}
-
+} 
 
 void filterEmployees(const vector<employee>& list, const string filter, vector<employee>& filtered, const string choice) {
 
@@ -73,12 +77,46 @@ void filterEmployees(const vector<employee>& list, const string filter, vector<e
         if (choice == "NAME") {
             filterOnName(e, filter, filtered);
         }
-        else {
+        else if(choice == "POSITION") {
             filterOnPosition(e, filter, filtered);
+        }
+        else {
+            if (e.date.size() > 0) {
+                filterOnDate(e, filtered);
+            }
+
         }
         
     }
 
+}
+
+void filterOnDate(employee& e, std::vector<employee>& filtered)
+{
+    struct tm newtime;
+    time_t now = time(0);
+    localtime_s(&newtime, &now);
+    int yearNow = (newtime.tm_year + 1900), monthNow = 1 + newtime.tm_mon;
+
+    string date = e.date;
+    vector<int> strippedDate;
+
+    std::stringstream ss(date);
+    std::string token;
+    while (getline(ss, token, '-')) {
+        strippedDate.push_back(stoi(token));
+    }
+
+    if (yearNow - strippedDate[0] == 0) {
+        if (monthNow - strippedDate[1] > 6) {
+            filtered.push_back(e);
+        }
+    }
+    else if (yearNow - strippedDate[0]> 0) {
+        if ((12 % monthNow + strippedDate[1]) > 6) {
+            filtered.push_back(e);
+        }
+    }
 }
 
 void filterOnName(const employee& e, const std::string& filter, std::vector<employee>& filtered)
