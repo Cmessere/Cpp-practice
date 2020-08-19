@@ -8,20 +8,25 @@ using namespace std;
 
 void sortNames(vector<string> &names);
 void inputNames();
-void getNamesFromFile(vector<string>& names);
+void getNamesFromFile(vector<string>& names, const short fileCode);
 void getUserChoice(std::string& choice);
+void getNameFile(std::string& choice);
 void printNames(const vector<string> &names);
 
 int main()
 {
 	vector<string> names;
-	string choice;
+	string choice, fileName;
 
 
 	getUserChoice(choice);
 
 	if (choice == "OUTPUT") {
-		getNamesFromFile(names);
+		getNameFile(fileName);
+		if(fileName == "EMPLOYEE")
+			getNamesFromFile(names, 0);
+		else
+			getNamesFromFile(names, 1);
 		sortNames(names);
 		printNames(names);
 	}
@@ -32,7 +37,7 @@ int main()
 
 void getUserChoice(std::string& choice)
 {
-	cout << "Do you want to insert names or output them? ";
+	cout << "Do you want to 'insert' names or 'output' them? ";
 	cin >> choice;
 
 	std::for_each(choice.begin(), choice.end(), [](char& c) {c = ::toupper(c); });
@@ -46,13 +51,31 @@ void getUserChoice(std::string& choice)
 	}
 }
 
-void getNamesFromFile(vector<string>& names)
+void getNameFile(std::string& choice) {
+	cout << "Do you want to sort 'employee' names or 'test' big datasets? ";
+	cin >> choice;
+
+	std::for_each(choice.begin(), choice.end(), [](char& c) {c = ::toupper(c); });
+
+
+	while (choice != "EMPLOYEE" && choice != "TEST") {
+		cout << "Not a valid choice. Please try again" << endl;
+		getline(cin, choice);
+
+		std::for_each(choice.begin(), choice.end(), [](char& c) {c = ::toupper(c); });
+	}
+}
+
+void getNamesFromFile(vector<string>& names, const short fileCode)
 {
-	string input;
+
+	string input, fileName;
 	ifstream nameFile;
 	cin.clear();
 
-	nameFile.open("names.txt");
+	fileCode == 0 ? fileName = "names.txt" : fileName = "PokèmonNames.txt";
+
+	nameFile.open(fileName);
 
 	if (!nameFile.is_open()) {
 		cout << "Could not open file";

@@ -23,5 +23,8 @@
     <Text Include="names.txt">
       <Filter>File di risorse</Filter>
     </Text>
+    <Text Include="PokèmonNames.txt">
+      <Filter>File di risorse</Filter>
+    </Text>
   </ItemGroup>
 </Project>
