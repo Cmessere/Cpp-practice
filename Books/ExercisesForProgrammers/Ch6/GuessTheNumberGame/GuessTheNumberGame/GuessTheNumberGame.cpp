@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <stdlib.h>
 #include <time.h>
+#include <set>
 
 constexpr auto EASY_MAX = 10;
 constexpr auto MEDIUM_MAX = 100;
@@ -70,6 +71,7 @@ void guessingGame(const int& maxNumber) {
 
     int tries = 0, target, currentInput;
     bool found = false;
+    set<int> alredyGuessed;
 
     getRandomTarget(maxNumber, target);
     cout << "I have my number.What's your guess? ";
@@ -86,18 +88,26 @@ void guessingGame(const int& maxNumber) {
             tries++;
         }
 
-        if (currentInput == target) {
-            outputWinningMessage(tries);
-            found = true;
-            askForAnotherGame();
-            break;
+        if (alredyGuessed.find(currentInput) != alredyGuessed.end()) {
+            cout << "You already entered this number, try again: ";
+            tries++;
         }
+        else {
+            alredyGuessed.insert(currentInput);
 
-        if (currentInput < target && currentInput != 0) {
-            cout << "Too low. Guess again: ";
-        }
-        else if(currentInput > target && currentInput != 0){
-            cout << "Too high. Guess again: ";
+            if (currentInput == target) {
+                outputWinningMessage(tries);
+                found = true;
+                askForAnotherGame();
+                break;
+            }
+
+            if (currentInput < target && currentInput != 0) {
+                cout << "Too low. Guess again: ";
+            }
+            else if (currentInput > target && currentInput != 0) {
+                cout << "Too high. Guess again: ";
+            }
         }
     }
 }
@@ -126,12 +136,12 @@ void askForAnotherGame() {
 
 void outputWinningMessage(const int& tries) {
     if (tries <= 1) {
-        cout << "You’re a mind reader!" << endl;
+        cout << "You're a mind reader!" << endl;
     }
     else if (tries <= 3 && tries >= 2) {
         cout << "Most impressive." << endl;
-    } 
-    else if(tries >= 4 && tries <= 6){
+    }
+    else if (tries >= 4 && tries <= 6) {
         cout << "You can do better than that." << endl;
     }
     else {
