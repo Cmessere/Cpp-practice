@@ -15,6 +15,7 @@ void guessingGame(const int& difficulty);
 void getMaxPossibleNumber(const int difficulty, int& maxNumber);
 void getDifficulty(int& difficulty);
 void getRandomTarget(const int& maxNumber, int& target);
+void outputWinningMessage(const int &tries);
 
 int main()
 {
@@ -86,7 +87,7 @@ void guessingGame(const int& maxNumber) {
         }
 
         if (currentInput == target) {
-            cout << "You got it in " << tries << " guesses!" << endl;
+            outputWinningMessage(tries);
             found = true;
             askForAnotherGame();
             break;
@@ -113,6 +114,8 @@ void askForAnotherGame() {
     {
         cout << "Not a valid choice, please try again ('N' / 'Y')" << endl;
         cin >> choice;
+
+        std::for_each(choice.begin(), choice.end(), [](char& c) {c = ::toupper(c); });
     }
 
     if (choice == "Y")
@@ -121,3 +124,17 @@ void askForAnotherGame() {
         cout << "Goodbye then!" << endl;
 }
 
+void outputWinningMessage(const int& tries) {
+    if (tries <= 1) {
+        cout << "You’re a mind reader!" << endl;
+    }
+    else if (tries <= 3 && tries >= 2) {
+        cout << "Most impressive." << endl;
+    } 
+    else if(tries >= 4 && tries <= 6){
+        cout << "You can do better than that." << endl;
+    }
+    else {
+        cout << "Better luck next time." << endl;
+    }
+}
