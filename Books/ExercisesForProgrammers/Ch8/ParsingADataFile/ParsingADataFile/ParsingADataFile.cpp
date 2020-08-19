@@ -15,7 +15,6 @@ int main()
 {
 	vector<tuple<string, string, string>> employee;
 
-	vector<string> firstNames, lastNames, salaries;
 	getDataFromFile(employee);
 	outputDataAsTable(employee);
 }
