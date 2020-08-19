@@ -4,10 +4,11 @@
 #include <numeric>
 #include <algorithm>
 #include <math.h>
+#include <fstream>
 
 using namespace std;
 
-void promptForNumbers(string& input, vector<double>& number);
+void getNumbersFromFile(vector<double>& number);
 void print(const vector<double>& number);
 double mean(const vector<double>& number);
 void max(const vector<double>& number);
@@ -18,9 +19,8 @@ int main()
 {
 	vector<double> number;
 	double meanValue;
-	string input;
 
-	promptForNumbers(input, number);
+	getNumbersFromFile(number);
 	print(number);
 	meanValue = mean(number);
 	max(number);
@@ -59,16 +59,25 @@ void standardDeviation(const vector<double>& number, const double& mean) {
 
 }
 
-void promptForNumbers(std::string& input, std::vector<double>& number)
+void getNumbersFromFile(std::vector<double>& number)
 {
-	while (true)
+	ifstream numberSource;
+	double input;
+
+	numberSource.open("numbers.txt");
+
+	if (!numberSource.is_open())
 	{
-		cout << "Enter a number: ";
-		cin >> input;
-
-		if (input == "done")
-			break;
-
-		number.push_back(stoi(input));
+		cout << "Could not open numbers.txt" << endl;
+		exit(1);
 	}
+	cout << "Getting number from file." << endl;
+
+	while (numberSource >> input) {
+		cout << "Reading: " << input << endl;
+
+		number.push_back(input);
+	}
+	cout << endl;
+	numberSource.close();
 }
