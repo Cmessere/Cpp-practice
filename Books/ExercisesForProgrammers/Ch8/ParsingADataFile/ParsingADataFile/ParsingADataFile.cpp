@@ -22,11 +22,11 @@ int main()
 
 void outputDataAsTable(vector<tuple<string, string, string>>& employee)
 {
-	cout << setw(16) << "Last " << setw(15) << "First " << setw(15) << "Salary " << endl;
+	cout << setw(16) << right << "Last " << setw(15) << "First " << setw(15) << "Salary " << endl;
 
 	for (int i = 0; i < employee.size(); i++) {
 		auto t = employee[i];
-		cout << setw(15) << get<0>(t) << setw(15) << get<1>(t) << setw(15) << get<2>(t) << endl;
+		cout << setw(15) << right << get<0>(t) << setw(15) << get<1>(t) << setw(10) << "$" << get<2>(t) << endl;
 	}
 }
 
