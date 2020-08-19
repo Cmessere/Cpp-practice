@@ -1,22 +1,21 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
 vector<int> filterEvenNumbers(const vector<int> &unfiltered);
 
-void getInputs(std::string& rawInput, std::vector<std::string>& stringNumbers, std::vector<int>& numbers);
+void getInputs(std::vector<int>& numbers);
 
 void outputEvens(std::vector<int>& evens);
 
 int main()
 {
-	string rawInput;
 	vector<int> numbers, evens;
-	vector<string> stringNumbers;
 
-	getInputs(rawInput, stringNumbers, numbers);
+	getInputs(numbers);
 
 	evens = filterEvenNumbers(numbers);
 
@@ -31,19 +30,25 @@ void outputEvens(std::vector<int>& evens)
 	}
 }
 
-void getInputs(std::string& rawInput, std::vector<std::string>& stringNumbers, std::vector<int>& numbers)
+void getInputs(std::vector<int>& numbers)
 {
-	cout << "Enter a list of numbers, separated by spaces (space enter to stop): ";
+	cout << "Getting numbers from file: ";
+	ifstream inFile;
+	string number;
 
-	while (cin.peek() != '\n')
-	{
-		getline(cin, rawInput, ' ');
-		stringNumbers.push_back(rawInput);
+	inFile.open("numbers.txt");
+
+	if (!inFile.is_open()) {
+		cout << "Could not open file.";
+		exit(1);
 	}
 
-	for (auto s : stringNumbers) {
- 		numbers.push_back(stoi(s));
+	while (getline(inFile, number)) {
+		cout << number << " ";
+		numbers.push_back(stoi(number));
 	}
+
+	cout << endl;
 }
 
 vector<int> filterEvenNumbers(const vector<int> &unfiltered) {
