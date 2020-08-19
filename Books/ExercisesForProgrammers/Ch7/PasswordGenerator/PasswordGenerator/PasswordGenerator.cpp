@@ -8,6 +8,7 @@ using namespace std;
 
 void getInput(const string& question, int& input);
 void convertVowelsToDigits(string& password, const list<string> vowels);
+void generatePassword();
 string getRandomChar(const list<string> & list);
 string getRandomDigit();
 
@@ -53,32 +54,46 @@ void convertVowelsToDigits(string& password, const list<char> vowels) {
 
 int main()
 {
-	int length, specialCount, numberCount;
+	generatePassword();
+}
+
+void generatePassword()
+{
+	int length, specialCount, numberCount, iterations;
 	list<string> symbols = { "%", "$", "!", "&", "?" };
 	list<char> vowels = { 'a', 'e', 'i', 'o', 'u' };
 	list<string> chars = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
-		"m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+		"m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
 
-	string password = "";
+	string password;
+	vector<string> passwords;
 
 	getInput("What is the minimum length? ", length);
 	getInput("How many special characters? ", specialCount);
 	getInput("How many numbers? ", numberCount);
+	getInput("How many variants do you want? ", iterations);
 
-	for (int i = 0; i < specialCount; i++) {
-		password += getRandomChar(symbols);
-	}
+	for (int k = 0; k < iterations; k++) {
+		password = "";
 
-	for (int i = 0; i < numberCount; i++) {
-		password += getRandomDigit();
-	}
+		for (int i = 0; i < specialCount; i++) {
+			password += getRandomChar(symbols);
+		}
 
-	for (int i = 0; i < length - specialCount - numberCount; i++) {
-		password += getRandomChar(chars);
-	}
+		for (int i = 0; i < numberCount; i++) {
+			password += getRandomDigit();
+		}
 
-	convertVowelsToDigits(password, vowels);
+		for (int i = 0; i < length - specialCount - numberCount; i++) {
+			password += getRandomChar(chars);
+		}
 
-	random_shuffle(password.begin(), password.end());
-	cout << "Your password is: " << endl << password;
+		convertVowelsToDigits(password, vowels);
+
+		random_shuffle(password.begin(), password.end());
+		passwords.push_back(password);
+
+		cout << "Your password number " << k+1 << " is: " << endl << password << endl << endl;
+	}	
+
 }
