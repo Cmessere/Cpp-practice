@@ -7,22 +7,50 @@
 using namespace std;
 
 void sortNames(vector<string> &names);
+void inputNames();
 void getNamesFromFile(vector<string>& names);
+void getUserChoice(std::string& choice);
 void printNames(const vector<string> &names);
 
 int main()
 {
 	vector<string> names;
+	string choice;
 
-	getNamesFromFile(names);
-	sortNames(names);
-	printNames(names);
+
+	getUserChoice(choice);
+
+	if (choice == "OUTPUT") {
+		getNamesFromFile(names);
+		sortNames(names);
+		printNames(names);
+	}
+	else {
+		inputNames();
+	}
+}
+
+void getUserChoice(std::string& choice)
+{
+	cout << "Do you want to insert names or output them? ";
+	cin >> choice;
+
+	std::for_each(choice.begin(), choice.end(), [](char& c) {c = ::toupper(c); });
+
+
+	while (choice != "INSERT" && choice != "OUTPUT") {
+		cout << "Not a valid choice. Please try again" << endl;
+		getline(cin, choice);
+
+		std::for_each(choice.begin(), choice.end(), [](char& c) {c = ::toupper(c); });
+	}
 }
 
 void getNamesFromFile(vector<string>& names)
 {
 	string input;
 	ifstream nameFile;
+	cin.clear();
 
 	nameFile.open("names.txt");
 
@@ -45,5 +73,24 @@ void printNames(const vector<string> &names) {
 
 	for (auto n : names) {
 		cout << n << endl;
+	}
+}
+
+void inputNames() {
+	string input;
+	ofstream nameFile;
+
+	cin.clear();
+	cin.ignore();
+	nameFile.open("names.txt", ios_base::app);
+	
+	while (true) {
+		cout << "Enter a name, input 'done' to stop: ";
+		getline(cin, input);
+
+		if (input == "done")
+			break;
+
+		nameFile << endl <<  input;
 	}
 }
