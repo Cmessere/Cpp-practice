@@ -13,29 +13,49 @@ struct employee {
 };
 
 void initializeEmployees(vector<employee>& list);
-void filterEmployees(const vector<employee>& list, const string filter, vector<employee>& filtered);
+void filterEmployees(const vector<employee>& list, const string filter, vector<employee>& filtered, const string choice);
 void printEmployees(const vector<employee>& list);
 
+void askForFieldToSort(std::string& choice);
 void askForStringToSearch(std::string& choice);
+
+void filterOnName(const employee& e, const std::string& filter, std::vector<employee>& filtered);
+void filterOnPosition(const employee& e, const std::string& filter, std::vector<employee>& filtered);
+
 
 using namespace std;
 
 int main()
 {
     vector<employee> employeesList, filtered;
-    string choice;
+    string choice, filter;
 
-    askForStringToSearch(choice);
+    askForFieldToSort(choice);
+    askForStringToSearch(filter);
     initializeEmployees(employeesList);
-    filterEmployees(employeesList, choice, filtered);
+    filterEmployees(employeesList, filter, filtered, choice);
     printEmployees(filtered);
 }
 
-void askForStringToSearch(std::string& choice)
+void askForFieldToSort(std::string& choice)
+{
+    cout << "Do you want to sort on name or position? ";
+    cin >> choice;
+
+    std::for_each(choice.begin(), choice.end(), [](char& c) {c = ::toupper(c); });
+
+
+    while (choice != "NAME" && choice != "POSITION") {
+        cout << "Sorry, not a valid option. Please try again" << endl;
+        cin >> choice;
+    }
+}
+
+void askForStringToSearch(std::string& filter)
 {
     cout << "Enter the string to search: ";
-    cin >> choice;
-    std::for_each(choice.begin(), choice.end(), [](char& c) {c = ::toupper(c); });
+    cin >> filter;
+    std::for_each(filter.begin(), filter.end(), [](char& c) {c = ::toupper(c); });
 }
 
 void printEmployees(const vector<employee>& list) {
@@ -46,20 +66,43 @@ void printEmployees(const vector<employee>& list) {
     }
 }
 
-void filterEmployees(const vector<employee>& list, const string filter, vector<employee>& filtered) {
+
+void filterEmployees(const vector<employee>& list, const string filter, vector<employee>& filtered, const string choice) {
 
     for (auto e : list) {
-        string caseInsensitiveName, caseInsensitiveSurname;
-        caseInsensitiveSurname = e.surname;
-        caseInsensitiveName = e.name;
-
-        std::for_each(caseInsensitiveName.begin(), caseInsensitiveName.end(), [](char& c) {c = ::toupper(c); });
-        std::for_each(caseInsensitiveSurname.begin(), caseInsensitiveSurname.end(), [](char& c) {c = ::toupper(c); });
-
-        if (caseInsensitiveSurname.find(filter) != string::npos || caseInsensitiveName.find(filter) != string::npos)
-            filtered.push_back(e);
+        if (choice == "NAME") {
+            filterOnName(e, filter, filtered);
+        }
+        else {
+            filterOnPosition(e, filter, filtered);
+        }
+        
     }
 
+}
+
+void filterOnName(const employee& e, const std::string& filter, std::vector<employee>& filtered)
+{
+    string caseInsensitiveName, caseInsensitiveSurname;
+    caseInsensitiveSurname = e.surname;
+    caseInsensitiveName = e.name;
+
+    std::for_each(caseInsensitiveName.begin(), caseInsensitiveName.end(), [](char& c) {c = ::toupper(c); });
+    std::for_each(caseInsensitiveSurname.begin(), caseInsensitiveSurname.end(), [](char& c) {c = ::toupper(c); });
+
+    if (caseInsensitiveSurname.find(filter) != string::npos || caseInsensitiveName.find(filter) != string::npos)
+        filtered.push_back(e);
+}
+
+void filterOnPosition(const employee& e, const std::string& filter, std::vector<employee>& filtered)
+{
+    string caseInsensitivePosition;
+    caseInsensitivePosition = e.position;
+
+    std::for_each(caseInsensitivePosition.begin(), caseInsensitivePosition.end(), [](char& c) {c = ::toupper(c); });
+
+    if (caseInsensitivePosition.find(filter) != string::npos)
+        filtered.push_back(e);
 }
 
 void initializeEmployees(vector<employee>& list) {
