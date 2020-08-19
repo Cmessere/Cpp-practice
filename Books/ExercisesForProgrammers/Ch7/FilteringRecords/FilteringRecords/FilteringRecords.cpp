@@ -16,6 +16,8 @@ void initializeEmployees(vector<employee>& list);
 void filterEmployees(const vector<employee>& list, const string filter, vector<employee>& filtered);
 void printEmployees(const vector<employee>& list);
 
+void askForStringToSearch(std::string& choice);
+
 using namespace std;
 
 int main()
@@ -23,12 +25,17 @@ int main()
     vector<employee> employeesList, filtered;
     string choice;
 
-    cout << "Enter the string to search: ";
-    cin >> choice;
-
+    askForStringToSearch(choice);
     initializeEmployees(employeesList);
     filterEmployees(employeesList, choice, filtered);
     printEmployees(filtered);
+}
+
+void askForStringToSearch(std::string& choice)
+{
+    cout << "Enter the string to search: ";
+    cin >> choice;
+    std::for_each(choice.begin(), choice.end(), [](char& c) {c = ::toupper(c); });
 }
 
 void printEmployees(const vector<employee>& list) {
@@ -42,7 +49,14 @@ void printEmployees(const vector<employee>& list) {
 void filterEmployees(const vector<employee>& list, const string filter, vector<employee>& filtered) {
 
     for (auto e : list) {
-        if (e.surname.find(filter) != string::npos || e.name.find(filter) != string::npos)
+        string caseInsensitiveName, caseInsensitiveSurname;
+        caseInsensitiveSurname = e.surname;
+        caseInsensitiveName = e.name;
+
+        std::for_each(caseInsensitiveName.begin(), caseInsensitiveName.end(), [](char& c) {c = ::toupper(c); });
+        std::for_each(caseInsensitiveSurname.begin(), caseInsensitiveSurname.end(), [](char& c) {c = ::toupper(c); });
+
+        if (caseInsensitiveSurname.find(filter) != string::npos || caseInsensitiveName.find(filter) != string::npos)
             filtered.push_back(e);
     }
 
