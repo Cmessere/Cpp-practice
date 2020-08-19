@@ -4,22 +4,25 @@
 #include <vector>
 #include <iomanip>
 #include <tuple>
+#include <algorithm>
 
 using namespace std;
 
 void getDataFromFile(vector<tuple<string, string, string>> &employee);
-void outputDataAsTable(vector<tuple<string, string, string>> &employee);
-
+void outputDataAsTable(const vector<tuple<string, string, string>> &employee);
+void sortBySalary(vector<tuple<string, string, string>> &employee);
+bool salaryField(const tuple<string, string, string>& a, const tuple<string, string, string>& b);
 
 int main()
 {
 	vector<tuple<string, string, string>> employee;
 
 	getDataFromFile(employee);
+	sortBySalary(employee);
 	outputDataAsTable(employee);
 }
 
-void outputDataAsTable(vector<tuple<string, string, string>>& employee)
+void outputDataAsTable(const vector<tuple<string, string, string>>& employee)
 {
 	cout << setw(16) << right << "Last " << setw(15) << "First " << setw(15) << "Salary " << endl;
 
@@ -27,6 +30,15 @@ void outputDataAsTable(vector<tuple<string, string, string>>& employee)
 		auto t = employee[i];
 		cout << setw(15) << right << get<0>(t) << setw(15) << get<1>(t) << setw(10) << "$" << get<2>(t) << endl;
 	}
+}
+
+bool salaryField(const tuple<string, string, string>& a,const tuple<string, string, string>& b)
+{
+	return (get<2>(a) < get<2>(b));
+}
+
+void sortBySalary(vector<tuple<string, string, string>>& employee) {
+	sort(employee.begin(), employee.end(), salaryField);
 }
 
 void getDataFromFile(vector<tuple<string, string, string>>& employee){
