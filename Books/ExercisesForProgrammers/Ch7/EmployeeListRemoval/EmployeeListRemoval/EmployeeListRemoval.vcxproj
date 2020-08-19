@@ -144,6 +144,9 @@
   <ItemGroup>
     <Text Include="employees.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EmployeeListRemoval.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

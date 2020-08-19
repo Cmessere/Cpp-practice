@@ -2,6 +2,7 @@
 #include <list>
 #include <string>
 #include <fstream>
+#include "EmployeeListRemoval.h"
 
 using namespace std;
 
@@ -11,12 +12,9 @@ int main()
     string targetToRemove, employeeFromFile;
 
     ifstream employeeFile;
+    ofstream outputEmployeeFile;
 
-    employeeFile.open("employees.txt");
-    if (!employeeFile) {
-        cout << "Unable to open file";
-        exit(1);
-    }
+    openFileAsInput(employeeFile);
 
     while (getline(employeeFile, employeeFromFile)) {
         employees.push_back(employeeFromFile);
@@ -43,5 +41,31 @@ int main()
         else {
             employees.remove(targetToRemove);
         }
+    }
+    employeeFile.close();
+
+    outputListToFile(outputEmployeeFile, employees);
+}
+
+void outputListToFile(std::ofstream& outputEmployeeFile, std::list<std::string>& employees)
+{
+    outputEmployeeFile.open("employees.txt");
+    if (!outputEmployeeFile) {
+        cout << "Unable to open file";
+        exit(1);
+    }
+
+    for (auto i : employees) {
+        outputEmployeeFile << i << endl;
+    }
+    outputEmployeeFile.close();
+}
+
+void openFileAsInput(std::ifstream& employeeFile)
+{
+    employeeFile.open("employees.txt");
+    if (!employeeFile) {
+        cout << "Unable to open file";
+        exit(1);
     }
 }
