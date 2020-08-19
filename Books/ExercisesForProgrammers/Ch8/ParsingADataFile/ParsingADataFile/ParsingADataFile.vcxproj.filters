@@ -24,4 +24,9 @@
       <Filter>File di risorse</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="data.csv">
+      <Filter>File di risorse</Filter>
+    </None>
+  </ItemGroup>
 </Project>
