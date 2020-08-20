@@ -11,7 +11,6 @@ using namespace std;
 int main()
 {
     map<string, double> ratesApi;
-
     bool retflag;
     int retval = fetchExchangeRates(ratesApi, retflag);
     if (retflag) return retval;
