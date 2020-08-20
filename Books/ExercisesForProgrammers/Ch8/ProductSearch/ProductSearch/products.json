@@ -1,19 +1,44 @@
 {
-  "products": [
-    {
-      "name": "Widget",
-      "price": 25.00,
-      "quantity": 5
-    },
-    {
-      "name": "Thing",
-      "price": 15.00,
-      "quantity": 5
-    },
-    {
-      "name": "Doodad",
-      "price": 5.00,
-      "quantity": 10
-    }
-  ]
+   "products" : [
+      {
+         "name" : "Widget",
+         "price" : 25.0,
+         "quantity" : 5
+      },
+      {
+         "name" : "Thing",
+         "price" : 15.0,
+         "quantity" : 5
+      },
+      {
+         "name" : "Doodad",
+         "price" : 5.0,
+         "quantity" : 10
+      },
+      {
+         "name" : "Banana",
+         "price" : 3.0,
+         "quantity" : 3
+      },
+      {
+         "name" : "Apple",
+         "price" : 1.0,
+         "quantity" : 2
+      },
+      {
+         "name" : "Orange",
+         "price" : 3.0,
+         "quantity" : 3
+      },
+      {
+         "name" : "Cacao",
+         "price" : 5.0,
+         "quantity" : 25
+      },
+      {
+         "name" : "Nvidia rtx 2080 super ti",
+         "price" : 13000.0,
+         "quantity" : 1
+      }
+   ]
 }
