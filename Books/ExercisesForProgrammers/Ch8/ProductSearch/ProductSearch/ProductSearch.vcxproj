@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="ProductSearch.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="products.json" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
