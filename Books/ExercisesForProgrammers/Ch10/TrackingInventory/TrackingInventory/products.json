@@ -1,0 +1,44 @@
+{
+   "products" : [
+      {
+         "name" : "Widget",
+         "price" : 25.0,
+         "serial" : "AAAA"
+      },
+      {
+         "name" : "Thing",
+         "price" : 15.0,
+         "serial" : "AAAV"
+      },
+      {
+         "name" : "Doodad",
+         "price" : 5.0,
+         "serial" : "AAAC"
+      },
+      {
+         "name" : "Banana",
+         "price" : 3.0,
+         "serial" :"AAAS"
+      },
+      {
+         "name" : "Apple",
+         "price" : 1.0,
+         "serial" : "AAAQ"
+      },
+      {
+         "name" : "Orange",
+         "price" : 3.0,
+         "serial" : "AAAD"
+      },
+      {
+         "name" : "Cacao",
+         "price" : 5.0,
+         "serial" : "AAAP"
+      },
+      {
+         "name" : "Nvidia rtx 2080 super ti",
+         "price" : 13000.0,
+         "serial" : "AAAW"
+      }
+   ]
+}
